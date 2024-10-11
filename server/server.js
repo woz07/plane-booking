@@ -134,7 +134,24 @@ server.post('/flights/airline', (request, response) => {
  * @String country = The country to check for
  */
 server.post('/flights/to', (request, response) => {
-
+  const country = request.body;
+  if (country == null || country.trim() == '') {
+    response.status(400).json({ error: true, message: "Country cannot be empty nor null" });
+    return;
+  }
+  const query_ = `SELECT * FROM flights WHERE to=\"${country}\"`;
+  db.query(query_, (error, results) => {
+    if (error) {
+      console.log('Error retrieving flights details: ', error);
+      response.status(500).json({ error: true, message: 'Error retrieving flights details' });
+      return;
+    }
+    if (results == null) {
+      response.status(400).json({ error: true, message: 'Unable to get flight details' });
+      return;
+    }
+    response.status(200).json({ error: false, message: 'Successfully got flight information', result: results});
+  });
 });
 
 /**
@@ -142,31 +159,104 @@ server.post('/flights/to', (request, response) => {
  * @String country = The country to check for
  */
 server.post('/flights/from', (request, response) => {
-
+  const country = request.body;
+  if (country == null || country.trim() == '') {
+    response.status(400).json({ error: true, message: "Country cannot be empty nor null" });
+    return;
+  }
+  const query_ = `SELECT * FROM flights WHERE from=\"${country}\"`;
+  db.query(query_, (error, results) => {
+    if (error) {
+      console.log('Error retrieving flights details: ', error);
+      response.status(500).json({ error: true, message: 'Error retrieving flights details' });
+      return;
+    }
+    if (results == null) {
+      response.status(400).json({ error: true, message: 'Unable to get flight details' });
+      return;
+    }
+    response.status(200).json({ error: false, message: 'Successfully got flight information', result: results});
+  });
 });
 
 /**
- * This returns all the flights that have that many availabl slots
+ * This returns all the flights that have that many available slots and more
  * @Int slots = The amount of available slots there should be
  */
 server.post('/flights/availableslots', (request, response) => {
-
+  const slots = request.body;
+  if (slots == null || slots <= 0) {
+    response.status(400).json({ error: true, message: 'Slots cannot be null nor equal to 0' });
+    return;
+  }
+  const query_ = `SELECT * FROM flights WHERE available_slots>=\"${slots}\"`;
+  db.query(query_, (error, results) => {
+    if (error) {
+      console.log('Error retrieving flights details: ', error);
+      response.status(500).json({ error: true, message: 'Error retrieving flights details' });
+      return;
+    }
+    if (results == null) {
+      response.status(400).json({ error: true, message: 'Unable to get flight details' });
+      return;
+    }
+    response.status(200).json({ error: false, message: 'Successfully got flight information', result: results});
+  });
 });
 
 /**
  * This returns all the flights departing at the requested date
- * @Date date = The date to query for
+ * @Date min_date = The min date to query for
+ * @Date max_date = The max date to query for
+ * 
+ * e.g
+ * '2024-10-11 00:00:00' and '2024-10-11 23:59:59'
  */
 server.post('/flights/depart', (request, response) => {
-
+  const {min_date, max_date} = request.body;
+  if (min_date == null || min_date.trim() == '' || max_date == null || max_date.trim() == '') {
+    response.status(400).json({ error: true, message: 'Min or max date cannot be equal to null or empty' });
+    return;
+  }
+  const query_ = `SELECT * FROM flights WHERE departure_time BETWEEN ${min_date} AND ${max_date}`
+  db.query(query_, (error, results) => {
+    if (error) {
+      console.log('Error retrieving flights details: ', error);
+      response.status(500).json({ error: true, message: 'Error retrieving flights details' });
+      return;
+    }
+    if (results == null) {
+      response.status(400).json({ error: true, message: 'Unable to get flight details' });
+      return;
+    }
+    response.status(200).json({ error: false, message: 'Successfully got flight information', result: results});
+  });
 });
 
 /**
  * This returns all the flights arriving at the requested date
- * @Date date = The date to query for
+ * @Date min_date = The min date to query for
+ * @Date max_date = The max date to query for
  */
 server.post('/flights/arrival', (request, response) => {
-
+  const {min_date, max_date} = request.body;
+  if (min_date == null || min_date.trim() == '' || max_date == null || max_date.trim() == '') {
+    response.status(400).json({ error: true, message: 'Min or max date cannot be equal to null or empty' });
+    return;
+  }
+  const query_ = `SELECT * FROM flights WHERE arrival_time BETWEEN ${min_date} AND ${max_date}`
+  db.query(query_, (error, results) => {
+    if (error) {
+      console.log('Error retrieving flights details: ', error);
+      response.status(500).json({ error: true, message: 'Error retrieving flights details' });
+      return;
+    }
+    if (results == null) {
+      response.status(400).json({ error: true, message: 'Unable to get flight details' });
+      return;
+    }
+    response.status(200).json({ error: false, message: 'Successfully got flight information', result: results});
+  });
 });
 
 /**
@@ -174,7 +264,30 @@ server.post('/flights/arrival', (request, response) => {
  * @String username = The username to find all bookings for
  */
 server.post('/bookings/by', (request, response) => {
-
+  const username = request.body;
+  if (username == null || username.trim() == '') {
+    response.status(400).json({ error: true, message: 'Username cannot be null or empty' });
+    return;
+  }
+  const prequery = `SELECT * FROM users WHERE username=\"${username}\"`;
+  db.query(prequery, (error, result) => {
+    if (error || result.length === 0) {
+      response.status(400).json({ error: true, message: 'No such username exists' });
+      return;
+    }
+    const query_ = `SELECT * FROM bookings WHERE user_id=\"${result[0].id}\"`;
+    db.query(query_, (errror, results) => {
+      if (error) {
+        response.status(400).json({ error: true, message: 'Error retrieving booking details' });
+        return;
+      }
+      if (results.length == 0) {
+        response.status(400).json({ error: false, message: 'Username has not booked any flights' });
+        return;
+      }
+      response.status(200).json({ error: false, message: 'Successfully got booking information', result: results});
+    })
+  });
 });
 
 server.listen(port, () => {
