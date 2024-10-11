@@ -66,7 +66,7 @@ server.post('/user/login', (request, response) => {
 server.post('/user/signup', (request, response) => {
   const { username, password } = request.body;
   if (username == null || username.trim() == '' || password == null || password.trim() == '') {
-    response.status(400).json({ error: true, message: 'The username or password is not allowed' });
+    response.status(400).json({ error: true, message: 'The username or password is not allowed' });fs
     return;
   }
 
@@ -77,7 +77,7 @@ server.post('/user/signup', (request, response) => {
       response.status(500).json({ error: true, message: 'Error inserting user details' });
       return;
     }
-    if (request == null) {
+    if (results == null) {
       response.status(400).json({ error: true, message: 'Unable to insert user details' });
       return;
     }
@@ -89,7 +89,19 @@ server.post('/user/signup', (request, response) => {
  * This returns all the flights
  */
 server.post('/flights/all', (request, response) => {
-
+  const query_ = `SELECT * FROM flights`;
+  db.query(query_, (error, results) => {
+    if (error) {
+      console.log('Error retrieving flights details: ', error);
+      response.status(500).json({ error: true, message: 'Error retrieving flights details' });
+      return;
+    }
+    if (results == null) {
+      response.status(400).json({ error: true, message: 'Unable to get flight details' });
+      return;
+    }
+    response.status(200).json({ error: false, message: 'Successfully got flight information', result: results});
+  });
 });
 
 /**
@@ -97,7 +109,24 @@ server.post('/flights/all', (request, response) => {
  * @String airline = The airline to check for
  */
 server.post('/flights/airline', (request, response) => {
-  
+  const airline = request.body;
+  if (airline == null || airline.trim() == '') {
+    response.status(400).json({ error: true, message: "Airline cannot be empty nor null" });
+    return;
+  }
+  const query_ = `SELECT * FROM flights WHERE airline=\"${airline}\"`;
+  db.query(query_, (error, results) => {
+    if (error) {
+      console.log('Error retrieving flights details: ', error);
+      response.status(500).json({ error: true, message: 'Error retrieving flights details' });
+      return;
+    }
+    if (results == null) {
+      response.status(400).json({ error: true, message: 'Unable to get flight details' });
+      return;
+    }
+    response.status(200).json({ error: false, message: 'Successfully got flight information', result: results});
+  });
 });
 
 /**
