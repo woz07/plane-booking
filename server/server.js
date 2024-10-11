@@ -27,7 +27,6 @@ server.get('/', (request, response) => {
   response.status(200).json({ error: false, message: 'Hello from the server!' });
 });
 
-// Route for logging in verification
 server.post('/login', (request, response) => {
   const { username, password } = request.body;
   if (username == null || username.trim() == '' || password == null || password.trim() == '') {
@@ -74,7 +73,9 @@ server.post('/signup', (request, response) => {
     }
     response.status(200).json({ error: false, message: 'Successfully added user', });
   })
-})
+});
+
+
 
 server.listen(port, () => {
   console.log(`Server running on port ${port}`);
