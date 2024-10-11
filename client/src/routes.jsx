@@ -13,7 +13,7 @@ const routes = [
         element: <Flights />,
     },
     {
-        path:"contact",
+        path:"about",
         element: <Contact />,
     },
     {

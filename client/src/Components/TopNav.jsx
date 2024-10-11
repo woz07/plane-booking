@@ -7,14 +7,14 @@ function TopNav(){
     setIsSidebarOpen(!isSidebarOpen);
 }
   return (
-    <nav className="fixed top-0 bg-orange-800 text-white left-0 w-full h-20 flex items-center justify-between px-4 z-10 max-[900px]:justify-norma">
+    <nav className="fixed top-0 bg-orange-800 text-white left-0 w-full h-20 flex items-center justify-between px-4 z-10 max-[900px]:justify-normal">
       <ul className='float-left'>
         <li><button onClick={toggleSidebar} className="flex items-center gap-1 font-bold text-standard round"><img src={plane} alt="Logo" className='h-16 dark:bg-white text-white rounded-2xl  p-1 ' />Plane Booking Prototype</button></li>
       </ul>
-      <ul className="flex space-x-[20%] max-[750px]:hidden right-0 pr-52">
+      <ul className="flex space-x-[20%] max-[820px]:hidden right-0 pr-72">
         <li><Link to="/">Home</Link></li>
         <li><Link to="/flights">Flights</Link></li>
-        <li><Link to="/contact">Contact</Link></li>
+        <li><Link to="/about">About</Link></li>
         <li><Link to ="/login">Login</Link></li>
         <li><Link to="/signup">Signup</Link></li>
       </ul>
@@ -28,7 +28,7 @@ function TopNav(){
             <img src={plane} alt="Logo" className="w-20 bg-white pt-1 rounded-full" />
             <li><Link to="/" onClick={toggleSidebar}>Home</Link></li>
             <li><Link to="/flights" onClick={toggleSidebar}>Flights</Link></li>
-            <li><Link to="/contact" onClick={toggleSidebar}>Contact</Link></li>
+            <li><Link to="/about" onClick={toggleSidebar}>About</Link></li>
             <li><Link to="/login" onClick={toggleSidebar}>Login</Link></li>
             <li><Link to="/signup" onClick={toggleSidebar}>Signup</Link></li>
           </ul>
