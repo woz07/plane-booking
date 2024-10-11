@@ -81,7 +81,7 @@ server.post('/user/signup', (request, response) => {
       response.status(400).json({ error: true, message: 'Unable to insert user details' });
       return;
     }
-    response.status(200).json({ error: false, message: 'Successfully added user' });
+    response.status(200).json({ error: false, message: 'Successfully added user', });
   })
 });
 
