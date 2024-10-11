@@ -1,10 +1,10 @@
 import TopNav from "../../Components/TopNav";
 function Contact(){
     return(
-        <>
-        <TopNav />
-        <h1>Contact us Page</h1>
-        </>
+        <div className="pt-32 text-center">
+            <TopNav />
+            <h1>Contact us Page</h1>
+        </div>
     )
 }
 export default Contact;
