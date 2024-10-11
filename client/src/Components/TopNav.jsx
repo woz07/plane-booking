@@ -7,18 +7,16 @@ function TopNav(){
     setIsSidebarOpen(!isSidebarOpen);
 }
   return (
-    <nav className="fixed top-0 left-0 w-full h-20 flex items-center justify-between px-4 z-10 max-[900px]:justify-normal bg-white  dark:bg-black">
+    <nav className="fixed top-0 bg-orange-800 text-white left-0 w-full h-20 flex items-center justify-between px-4 z-10 max-[900px]:justify-norma">
       <ul className='float-left'>
-        <li><button onClick={toggleSidebar} className="flex text-black dark:text-white items-center gap-1 font-bold text-standard round"><img src={plane} alt="Logo" className='h-16 dark:bg-white text-white rounded-2xl  p-1 ' />Plane Booking Prototype</button></li>
+        <li><button onClick={toggleSidebar} className="flex items-center gap-1 font-bold text-standard round"><img src={plane} alt="Logo" className='h-16 dark:bg-white text-white rounded-2xl  p-1 ' />Plane Booking Prototype</button></li>
       </ul>
-      <ul className="flex space-x-[30%] text-standard max-[650px]:hidden text-black dark:text-white">
+      <ul className="flex space-x-[20%] max-[750px]:hidden right-0 pr-52">
         <li><Link to="/">Home</Link></li>
-        <li><Link to="/flights">Projects</Link></li>
+        <li><Link to="/flights">Flights</Link></li>
         <li><Link to="/contact">Contact</Link></li>
         <li><Link to ="/login">Login</Link></li>
         <li><Link to="/signup">Signup</Link></li>
-      </ul>
-      <ul className="flex space-x-[10%] max-[900px]:absolute right-0 pr-4">
       </ul>
 
       {isSidebarOpen && (
@@ -27,10 +25,9 @@ function TopNav(){
             &times;
           </button>
           <ul className="space-y-8 text-3xl">
-            <img src="" alt="Logo" className="bg-slate-600 rounded-full" />
-            <img src={plane} alt="Logo" className="bg-slate-600 rounded-full" />
+            <img src={plane} alt="Logo" className="w-20 bg-white pt-1 rounded-full" />
             <li><Link to="/" onClick={toggleSidebar}>Home</Link></li>
-            <li><Link to="/flights" onClick={toggleSidebar}>Projects</Link></li>
+            <li><Link to="/flights" onClick={toggleSidebar}>Flights</Link></li>
             <li><Link to="/contact" onClick={toggleSidebar}>Contact</Link></li>
             <li><Link to="/login" onClick={toggleSidebar}>Login</Link></li>
             <li><Link to="/signup" onClick={toggleSidebar}>Signup</Link></li>
