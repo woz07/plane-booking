@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import plane from "/public/plane.svg";
+import plane from "../plane.svg";
 import { useState } from "react";
 function TopNav(){
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
