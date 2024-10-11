@@ -9,7 +9,7 @@ function TopNav(){
   return (
     <nav className="fixed top-0 bg-orange-800 text-white left-0 w-full h-20 flex items-center justify-between px-4 z-10 max-[900px]:justify-normal">
       <ul className='float-left'>
-        <li><button onClick={toggleSidebar} className="flex items-center gap-1 font-bold text-standard round"><img src={plane} alt="Logo" className='h-16 dark:bg-white text-white rounded-2xl  p-1 ' />Plane Booking Prototype</button></li>
+        <li><button onClick={toggleSidebar} className="flex items-center gap-1 font-bold text-standard round"><img src={plane} alt="Logo" className='h-16 dark:bg-white text-white rounded-2xl  p-1 ' />Plane Tracking Prototype</button></li>
       </ul>
       <ul className="flex space-x-[20%] max-[820px]:hidden right-0 pr-72">
         <li><Link to="/">Home</Link></li>
