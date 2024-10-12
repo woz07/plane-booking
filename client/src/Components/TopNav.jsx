@@ -15,8 +15,8 @@ function TopNav(){
         <li><Link to="/">Home</Link></li>
         <li><Link to="/flights">Flights</Link></li>
         <li><Link to="/about">About</Link></li>
-        <li><Link to ="/login">Login</Link></li>
-        <li><Link to="/signup">Signup</Link></li>
+        <li><Link to ="/user/login">Login</Link></li>
+        <li><Link to="/user/signup">Signup</Link></li>
       </ul>
 
       {isSidebarOpen && (

@@ -17,11 +17,11 @@ const routes = [
         element: <Contact />,
     },
     {
-        path: "login",
+        path: "user/login",
         element: <Login />,
     },
     {
-        path: "signup",
+        path: "user/signup",
         element: <Signup />
     }
 ]
